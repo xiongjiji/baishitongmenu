@@ -77,15 +77,24 @@
 		</div>
 	</div>
 
+	<!-- 我的菜单 -->
+	<div class="bill" style = "display:none">
+		<h3>请叫服务员下单</h3>
+		<div class="total">
+			<span class="gongji">共计</span><span id="result"></div>
+			<div class="main-copy"></div>
+		</div>
+	</div>
+
 <script>
 	var H = document.documentElement.clientHeight;
 	var W = document.documentElement.clientWidth;
-	$('.nav,.showPic').css({
+	$('.nav,.showPic,.bill').css({
 		height: H,
 		property2: 'value2'
 	});
 
-	$('.showPic').css({
+	$('.showPic,.bill').css({
 		width: W,
 		property2: 'value2'
 	});
@@ -95,6 +104,11 @@
 		$('.active').removeClass('active');
 		$(this).addClass('active');
 	});
+    
+    $('.mymenu').click(function(event) {
+    	/* Act on the event */
+    	$('.bill').css('display','block')
+    });
 
 	// function showPic(){
 	// 	$('.detail-pic').click(function(event) {
@@ -138,21 +152,66 @@
 								$('#price-people').html(data.people);
 								$('.detail-pic').css('backgroundImage',data.img);
 								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="1" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
-								// 购物车增加
-								$(".add").click(function(){ 
-									var t=$(this).parent().find('input[class*=text_box]'); 
-									t.val(parseInt(t.val())+1) 
-									setTotal(); 
-								})
-								// 购物车减少数量
-								$(".min").click(function(event) {
-									var t=$(this).parent().find('input[class*=text_box]');
-									t.val(parseInt(t.val())-1);
-									if(parseInt(t.val())< 0){
-										t.val(0);
-									};
-									setTotal();
-								});
+
+								// // 购物车增加
+								// $(".add").click(function(){ 
+								// 	$('.main-copy').append($(this).closest('.detail').clone())
+								// 	var t=$(this).parent().find('input[class*=text_box]'); 
+								// 	t.val(parseInt(t.val())+1) 
+								// 	setTotal(); 
+
+								// })
+								// // 购物车减少数量
+								// $(".min").click(function(event) {
+								// 	var t=$(this).parent().find('input[class*=text_box]');
+								// 	t.val(parseInt(t.val())-1);
+								// 	if(parseInt(t.val())< 0){
+								// 		t.val(0);
+								// 	};
+								// 	setTotal();
+								// })
+								// //购物车的函数
+							
+								// 	// 定义localStorage方法
+								// 	utils = {
+								// 		setParam: function(name,value){
+								// 			localStorage.setItem(name,value);//定义localstorage的name和value
+								// 		},
+								// 		getParam: function(name,value){
+								// 			return localStorage.getItem(name,value);
+								// 		}
+								// 	}
+
+								// 	//定义product参数
+								// 	product = {
+								// 		name:1,
+								// 		price:1,
+								// 		amount:1,
+
+								// 	}
+								// 	//定义购物车里的product
+								// 	cart = {
+								// 		addproduct:function(){
+								// 			var ShoppingCart = utils.getParam('ShoppingCart');
+								// 			// 第一次加入商品
+								// 			if(ShoppingCart == "null"||ShoppingCart == ""){
+								// 				var jsonstr = {"productlist":[{"name":product.name,"price":product.price,"amount":product.amount,}],"totalNumber":product.amount,"totalAmount":(product.price*product.amount)};
+								// 				utils.setParam("ShoppingCart","'"+Json.stringfy(jsonStr));//转换字符串
+								// 			}else{
+								// 				var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));  
+        //     									var productlist = jsonstr.productlist;  
+        //     									var result=false;
+        //     									// 寻找是否有该商品
+        //     									for(i in productlist){
+        //     										if(productlist[i].name == product.name)
+        //     									}
+								// 			}
+								// 		},
+								// 	}
+
+
+								
+								// 详情图片
 								$('#detail-pic').bind('click', function(event) {
 									/* Act on the event */
     								$('.showPic').css({
@@ -187,6 +246,7 @@
 	   }
 
 	   init();
+
 
     for(i=0;i<=7;i++){
     	$('#' + i).each(function() {
