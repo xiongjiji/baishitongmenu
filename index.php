@@ -108,7 +108,8 @@
     
     $('.mymenu').click(function(event) {
     	/* Act on the event */
-    	$('.bill').css('display','block')
+    	$('.bill').css('display','block');
+    	$('#result').html(cart.totalNumber);
     });
 
 	// function showPic(){
