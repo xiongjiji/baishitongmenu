@@ -84,21 +84,7 @@
 		<div class="total">
 			<span class="gongji">共计</span><span id="result"></div>
 			<div class="main-copy">
-				<!-- <div class="main-copy-container">
-					<div class="main-copy-container-name"></div>
-					<div class="main-copy-container-price">
-						<span id="comfirm-price"></span>元/<span id="comfirm-amountname"><span>
-					</div>
-					<table id="tap">
-					   <tr>
-					   		<td>
-					   			<input class="min" name="" type="button" value="-" />
-					   			<input class="text_box" name="" type="text" value="0" />
-					   			<input class="add" name="" type="button" value="+" />
-					   		</td>
-					   	</tr>
-				    </div>
-				</div> -->
+				<div class="main-copy-control"></div>
 			</div>
 		</div>
 	</div>
@@ -137,6 +123,28 @@
             		/* Act on the event */
             		var t=$(this).parent().find('input[class*=text_box]'); 
 					t.val(parseInt(t.val())+1);
+
+					var aftername = $(this).parents('.main-copy-container').find('.main-copy-container-name').html();
+					var afterPrice = $(this).parents('.main-copy-container').find('#comfirm-price').html();
+					var afteramount = $(this).parents('.main-copy-container').find('#price-amount').html();
+					var product = {
+							"name":aftername,
+                             "price":afterPrice,
+                              "amount":t.val(),
+                                "amountName":afteramount
+
+					}
+                    cart.addproduct(product);
+            		$('#result').html(cart.totalNumber);
+            	});
+
+        $('.main-copy .min').click(function(event) {
+            		/* Act on the event */
+            		var t=$(this).parent().find('input[class*=text_box]');
+									t.val(parseInt(t.val())-1);
+									if(parseInt(t.val())< 0){
+										t.val(0);
+									};
 
 					var aftername = $(this).parents('.main-copy-container').find('.main-copy-container-name').html();
 					var afterPrice = $(this).parents('.main-copy-container').find('#comfirm-price').html();
@@ -211,19 +219,25 @@
                                        }
 									cart.addproduct(product);
 									
-									setTotal(); 
 								})
-								// })
-								// // 购物车减少数量
-								// $(".min").click(function(event) {
-								// 	var t=$(this).parent().find('input[class*=text_box]');
-								// 	t.val(parseInt(t.val())-1);
-								// 	if(parseInt(t.val())< 0){
-								// 		t.val(0);
-								// 	};
-								// 	setTotal();
-								// })
-								// //购物车的函数
+							
+								// 购物车减少数量
+								$(".min").click(function(event) {
+									var t=$(this).parent().find('input[class*=text_box]');
+									t.val(parseInt(t.val())-1);
+									if(parseInt(t.val())< 0){
+										t.val(0);
+									};
+									//更改购物车数据
+									product = {
+                                           "name":data.name,
+                                           "price":data.price,
+                                           "amount":t.val(),
+                                           "amountName":data.amount
+                                       }
+									cart.addproduct(product);
+								})
+								//购物车的函数
 							
 								// 	// 定义localStorage方法
 								// 	utils = {
@@ -335,6 +349,23 @@
 									cart.addproduct(product);
 									
 									setTotal(); 
+								})
+
+								// 购物车减少数量
+								$(".min").click(function(event) {
+									var t=$(this).parent().find('input[class*=text_box]');
+									t.val(parseInt(t.val())-1);
+									if(parseInt(t.val())< 0){
+										t.val(0);
+									};
+									//更改购物车数据
+									product = {
+                                           "name":data.name,
+                                           "price":data.price,
+                                           "amount":t.val(),
+                                           "amountName":data.amount
+                                       }
+									cart.addproduct(product);
 								})
 
 								//详情页展示
