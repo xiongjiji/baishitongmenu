@@ -83,7 +83,23 @@
 		<h3>请叫服务员下单</h3>
 		<div class="total">
 			<span class="gongji">共计</span><span id="result"></div>
-			<div class="main-copy"></div>
+			<div class="main-copy">
+				<!-- <div class="main-copy-container">
+					<div class="main-copy-container-name"></div>
+					<div class="main-copy-container-price">
+						<span id="comfirm-price"></span>元/<span id="comfirm-amountname"><span>
+					</div>
+					<table id="tap">
+					   <tr>
+					   		<td>
+					   			<input class="min" name="" type="button" value="-" />
+					   			<input class="text_box" name="" type="text" value="0" />
+					   			<input class="add" name="" type="button" value="+" />
+					   		</td>
+					   	</tr>
+				    </div>
+				</div> -->
+			</div>
 		</div>
 	</div>
 
@@ -106,10 +122,19 @@
 		$(this).addClass('active');
 	});
     
-    $('.mymenu').click(function(event) {
+    $('.mymenu').click(function(product) {
     	/* Act on the event */
     	$('.bill').css('display','block');
     	$('#result').html(cart.totalNumber);
+    	var ShoppingCart = utils.getParam("ShoppingCart");
+        var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+        var productlist = jsonstr.productlist;
+        for(var i in productlist){
+            	$('.main-copy').append('<div class="main-copy-container"><div class="main-copy-container-name">'+productlist[i].name+'</div><div class="main-copy-container-price"><span id="comfirm-price">'+productlist[i].price+'</span>元/<span id="comfirm-amountname">'+productlist[i].amountName+'<span></div><table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="'+productlist[i].amount+'" /><input class="add" name="" type="button" value="+" /></td></tr></div></div>');
+            	
+            }
+            
+
     });
 
 	// function showPic(){
@@ -160,10 +185,11 @@
 									var t=$(this).parent().find('input[class*=text_box]'); 
 									t.val(parseInt(t.val())+1);
 									// 向购物车加入商品
-									var product = {
+									product = {
                                            "name":data.name,
                                            "price":data.price,
                                            "amount":t.val(),
+                                           "amountName":data.amount
                                        }
 									cart.addproduct(product);
 									
@@ -282,10 +308,11 @@
 									var t=$(this).parent().find('input[class*=text_box]'); 
 									t.val(parseInt(t.val())+1);
 									// 向购物车加入商品
-									var product = {
+									product = {
                                            "name":data.name,
                                            "price":data.price,
                                            "amount":t.val(),
+                                           "amountName":data.amount
                                        }
 									cart.addproduct(product);
 									

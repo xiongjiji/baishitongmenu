@@ -11,6 +11,7 @@ product={
     name:"",
     amount:0,
     price:0.00,
+    amountName:""
 };
 orderdetail={
     username:"",
@@ -26,7 +27,7 @@ cart = {
         var ShoppingCart = utils.getParam("ShoppingCart");
         if(ShoppingCart==null||ShoppingCart==""){
 			//第一次加入商品
-            var jsonstr = {"productlist":[{"name":product.name,"amount":product.amount,"price":product.price}]};
+            var jsonstr = {"productlist":[{"name":product.name,"amount":product.amount,"price":product.price,"amountName":product.amountName}]};
             utils.setParam("ShoppingCart","'"+JSON.stringify(jsonstr));
         }else{
             var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));

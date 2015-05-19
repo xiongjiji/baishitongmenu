@@ -123,4 +123,12 @@
 	content: '元'
 }
 
-.main-copy{width: 90%;position: absolute;left:5%;top:10%;height: 100px;background: white}
+.main-copy{width: 90%;position: absolute;left:5%;top:10%;background: white}
+
+.main-copy-container{
+	width: 90%;height:60px;margin:0 auto;border-bottom: 1px solid #eae9ee;position: relative;
+}
+
+.main-copy-container-name{font-size: 18px;font-weight: bold;position: absolute;top:5%;left: 5%}
+
+.main-copy-container-price{font-size: 16px;position: absolute;bottom:5%;left: 5%;color:red;}
