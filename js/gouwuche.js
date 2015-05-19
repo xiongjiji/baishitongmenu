@@ -42,7 +42,7 @@ cart = {
             }
             if(!result){
 				//没有该商品就直接加进去
-                productlist.push({"name":product.name,"amount":product.amount,"price":product.price});
+                productlist.push({"name":product.name,"amount":product.amount,"price":product.price,"amountName":product.amountName});
             }
 			//重新计算总价
             jsonstr.totalNumber=parseInt(productlist[i].amount);

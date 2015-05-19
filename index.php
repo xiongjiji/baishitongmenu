@@ -131,9 +131,27 @@
         var productlist = jsonstr.productlist;
         for(var i in productlist){
             	$('.main-copy').append('<div class="main-copy-container"><div class="main-copy-container-name">'+productlist[i].name+'</div><div class="main-copy-container-price"><span id="comfirm-price">'+productlist[i].price+'</span>元/<span id="comfirm-amountname">'+productlist[i].amountName+'<span></div><table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="'+productlist[i].amount+'" /><input class="add" name="" type="button" value="+" /></td></tr></div></div>');
-            	
+
             }
-            
+        $('.main-copy .add').click(function(event) {
+            		/* Act on the event */
+            		var t=$(this).parent().find('input[class*=text_box]'); 
+					t.val(parseInt(t.val())+1);
+
+					var aftername = $(this).parents('.main-copy-container').find('.main-copy-container-name').html();
+					var afterPrice = $(this).parents('.main-copy-container').find('#comfirm-price').html();
+					var afteramount = $(this).parents('.main-copy-container').find('#price-amount').html();
+					var product = {
+							"name":aftername,
+                             "price":afterPrice,
+                              "amount":t.val(),
+                                "amountName":afteramount
+
+					}
+                    cart.addproduct(product);
+            		$('#result').html(cart.totalNumber);
+            	});
+
 
     });
 
