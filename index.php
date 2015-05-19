@@ -11,6 +11,7 @@
 	<title>百事通点菜系统</title>
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 	<script type="text/javascript" src='./js/jquery-1.9.1.min.js'></script>
+	<script type="text/javascript" src='./js/gouwuche.js'></script>
 </head>
 <body>
 
@@ -151,15 +152,22 @@
 								$('#price-amount').html(data.amount);
 								$('#price-people').html(data.people);
 								$('.detail-pic').css('backgroundImage',data.img);
-								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="1" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
+								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 
-								// // 购物车增加
-								// $(".add").click(function(){ 
-								// 	$('.main-copy').append($(this).closest('.detail').clone())
-								// 	var t=$(this).parent().find('input[class*=text_box]'); 
-								// 	t.val(parseInt(t.val())+1) 
-								// 	setTotal(); 
-
+								// 购物车增加
+								$(".add").click(function(){ 
+									var t=$(this).parent().find('input[class*=text_box]'); 
+									t.val(parseInt(t.val())+1);
+									// 向购物车加入商品
+									var product = {
+                                           "name":data.name,
+                                           "price":data.price,
+                                           "amount":t.val(),
+                                       }
+									cart.addproduct(product);
+									
+									setTotal(); 
+								})
 								// })
 								// // 购物车减少数量
 								// $(".min").click(function(event) {
@@ -266,6 +274,24 @@
 								$('#price-amount').html(data.amount);
 								$('#price-people').html(data.people);
 								$('.detail-pic').css('backgroundImage',data.img);
+								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
+
+								// 购物车增加
+								$(".add").click(function(){ 
+									var t=$(this).parent().find('input[class*=text_box]'); 
+									t.val(parseInt(t.val())+1);
+									// 向购物车加入商品
+									var product = {
+                                           "name":data.name,
+                                           "price":data.price,
+                                           "amount":t.val(),
+                                       }
+									cart.addproduct(product);
+									
+									setTotal(); 
+								})
+
+								//详情页展示
 								$('#detail-pic').bind('click', function(event) {
 									/* Act on the event */
     								$('.showPic').css({

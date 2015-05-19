@@ -9,7 +9,7 @@ header("Content-Type: text/plain;charset=utf-8");
 //定义一个多维数组，包含员工的信息，每条员工信息为一个数组
 $staff = array
 	(
-		array("name" => "炒饭", "number" => "1", "price" => "1", "amount" => "份","people" =>"3","img" =>"./image/logo.png"),
+		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png"),
 		array("name" => "炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/logo.png"),
 		array("name" => "粥", "number" => "3", "price" => "5", "amount" => "碗","people" =>"34","img" =>"./image/logo.png"),
 		array("name" => "肠粉", "number" => "4", "price" => "5", "amount" => "份","people" =>"35","img" =>"./image/logo.png"),
