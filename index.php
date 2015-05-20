@@ -103,6 +103,7 @@
 	</div>
 
 <script>
+// ---------检测浏览器宽高------
 	var H = document.documentElement.clientHeight;
 	var W = document.documentElement.clientWidth;
 	$('.nav,.showPic,.bill').css({
@@ -110,17 +111,20 @@
 		property2: 'value2'
 	});
 
+// -----------账单页面显示=========
 	$('.showPic,.bill').css({
 		width: W,
 		property2: 'value2'
 	});
 
+// 给每个主账单绑定样式
 	$('#1,#2,#3,#4,#5,#6,#7').click(function() {
 		/* Act on the event */
 		$('.active').removeClass('active');
 		$(this).addClass('active');
 	});
-    
+
+// 动态生成账单总金额
     $('.mymenu').click(function(product) {
     	/* Act on the event */
     	$('.bill').css('display','block');
@@ -147,6 +151,7 @@
                                 "amountName":afteramount
 
 					}
+
                     cart.addproduct(product);
             		$('#result').html(cart.totalNumber);
             	});
@@ -182,9 +187,22 @@
 
     });
 
+// 账单头绑定事件
     $('#btn-add').click(function(event) {
 		$('.bill').css('display','none');
-	});
+		var ShoppingCart = utils.getParam("ShoppingCart");
+		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+		var productlist = jsonstr.productlist;
+		$('#1,#2,#3,#4,#5,#6,#7').click(function(event) {
+			/* Act on the event */
+				for(var i in productlist){
+				$('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+				alert($('.'+productlist[i].id).find("input[class*=text_box]").val());
+				return false
+				}
+			})
+		});
+		
 
 	$('#btn-empty').click(function(product){
 		var ShoppingCart = utils.getParam("ShoppingCart");
@@ -197,45 +215,9 @@
 		utils.setParam("ShoppingCart","")
 	});
 
-	$('#btn-add').click(function(event) {
-		$('.bill').css('display','none');
-	});
 
-	$('#btn-empty').click(function(product){
-		var ShoppingCart = utils.getParam("ShoppingCart");
-		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
-		var productlist = jsonstr.productlist;
-		for(var i in productlist){
-            $('.main-copy-container').remove();
-		}
-	});
 
-	// function showPic(){
-	// 	$('.detail-pic').click(function(event) {
- //    	/* Act on the event */
- //    	$('.showPic').css({
- //    		display: 'block',
- //    		property2: 'value2'
- //    	});
- //    	var imgDetail = $(this).css('background-image');
- //    	// 动态获取背景图片
- //    	$('#Pic-detail').css('backgroundImage',imgDetail);
- //    	//动态获取说明文字
- //    	var name = $(this).next().html();
- //    	var price = $(this).next().next().html();
- //    	var people = $(this).next().next().html();
- //    	$('#detail-name').html(name);
- //    	$('#detail-price').html(price);
- //    	$('#detail-people').html(people);
- //    	$('.close').click(function(event) {
- //    		$('.showPic').css({
- //    			display: 'none',
- //    			property2: 'value2'
- //    		});
- //    	});
- //    });
-	// 	return false;
-	// }
+// 第一次加载商品 发出ajax请求
 	   function init(){
 	   		var request = new XMLHttpRequest();
 				request.open("GET", "service.php?number=1");
@@ -247,6 +229,7 @@
 							if (data.success) { 
 								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
 								$('.name').html(data.name);
+								$('.main .detail').addClass(data.id);
 								$('#price-number').html(data.price);
 								$('#price-amount').html(data.amount);
 								$('#price-people').html(data.people);
@@ -262,7 +245,8 @@
                                            "name":data.name,
                                            "price":data.price,
                                            "amount":t.val(),
-                                           "amountName":data.amount
+                                           "amountName":data.amount,
+                                           "id":data.id
                                        }
 									cart.addproduct(product);
 									
@@ -325,7 +309,7 @@
 
 
 								
-								// 详情图片
+// 详情图片
 								$('#detail-pic').bind('click', function(event) {
 									/* Act on the event */
     								$('.showPic').css({
@@ -361,7 +345,7 @@
 
 	   init();
 
-
+// 第一加载商品时候绑定后台数据
     for(i=0;i<=7;i++){
     	$('#' + i).each(function() {
     		$(this).click(function() {
@@ -376,6 +360,7 @@
 							if (data.success) { 
 								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
 								$('.name').html(data.name);
+								$('.main .detail').addClass(data.id);
 								$('#price-number').html(data.price);
 								$('#price-amount').html(data.amount);
 								$('#price-people').html(data.people);
@@ -391,7 +376,8 @@
                                            "name":data.name,
                                            "price":data.price,
                                            "amount":t.val(),
-                                           "amountName":data.amount
+                                           "amountName":data.amount,
+                                           "id":data.id
                                        }
 									cart.addproduct(product);
 									

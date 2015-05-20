@@ -9,13 +9,13 @@ header("Content-Type: text/plain;charset=utf-8");
 //定义一个多维数组，包含员工的信息，每条员工信息为一个数组
 $staff = array
 	(
-		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png"),
-		array("name" => "炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/logo.png"),
-		array("name" => "粥", "number" => "3", "price" => "5", "amount" => "碗","people" =>"34","img" =>"./image/logo.png"),
-		array("name" => "肠粉", "number" => "4", "price" => "5", "amount" => "份","people" =>"35","img" =>"./image/logo.png"),
-		array("name" => "面包", "number" => "5", "price" => "6", "amount" => "个","people" =>"31","img" =>"./image/logo.png"),
-		array("name" => "蛋糕", "number" => "6", "price" => "7", "amount" => "个","people" =>"32","img" =>"./image/logo.png"),
-		array("name" => "酱油", "number" => "7", "price" => "8", "amount" => "份","people" =>"33","img" =>"./image/logo.png"),
+		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "1341515"),
+		array("name" => "炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/logo.png","id" => "1234"),
+		array("name" => "粥", "number" => "3", "price" => "5", "amount" => "碗","people" =>"34","img" =>"./image/logo.png","id" => "3414"),
+		array("name" => "肠粉", "number" => "4", "price" => "5", "amount" => "份","people" =>"35","img" =>"./image/logo.png","id" => "3422224"),
+		array("name" => "面包", "number" => "5", "price" => "6", "amount" => "个","people" =>"31","img" =>"./image/logo.png","id" => "342344414"),
+		array("name" => "蛋糕", "number" => "6", "price" => "7", "amount" => "个","people" =>"32","img" =>"./image/logo.png","id" => "345354"),
+		array("name" => "酱油", "number" => "7", "price" => "8", "amount" => "份","people" =>"33","img" =>"./image/logo.png","id" => "3414141"),
 	);
 
 //判断如果是get请求，则进行搜索；如果是POST请求，则进行新建
@@ -46,7 +46,7 @@ function search(){
 	//遍历$staff多维数组，查找key值为number的员工是否存在，如果存在，则修改返回结果
 	foreach ($staff as $value) {
 		if ($value["number"] == $number) {
-			$result = '{"success":true,"number":"' . $value["number"] . '","price":"'.$value["price"].'","amount":"'.$value["amount"].'","people":"'.$value["people"].
+			$result = '{"success":true,"number":"' . $value["number"] . '","price":"'.$value["price"].'","id":"'.$value["id"].'","amount":"'.$value["amount"].'","people":"'.$value["people"].
 			'","img":"'.$value["img"].'","name":"'.$value["name"].
 							 '"}';
 			break;

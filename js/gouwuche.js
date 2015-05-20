@@ -11,7 +11,8 @@ product={
     name:"",
     amount:0,
     price:0.00,
-    amountName:""
+    amountName:"",
+    id:0
 };
 orderdetail={
     username:"",
@@ -27,7 +28,7 @@ cart = {
         var ShoppingCart = utils.getParam("ShoppingCart");
         if(ShoppingCart==null||ShoppingCart==""){
 			//第一次加入商品
-            var jsonstr = {"productlist":[{"name":product.name,"amount":product.amount,"price":product.price,"amountName":product.amountName}]};
+            var jsonstr = {"productlist":[{"name":product.name,"amount":product.amount,"price":product.price,"id":product.id,"amountName":product.amountName}]};
             utils.setParam("ShoppingCart","'"+JSON.stringify(jsonstr));
         }else{
             var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
@@ -42,7 +43,7 @@ cart = {
             }
             if(!result){
 				//没有该商品就直接加进去
-                productlist.push({"name":product.name,"amount":product.amount,"price":product.price,"amountName":product.amountName});
+                productlist.push({"name":product.name,"amount":product.amount,"price":product.price,"id":product.id,"amountName":product.amountName});
             }
 			//重新计算总价
             jsonstr.totalNumber=parseInt(productlist[i].amount);
