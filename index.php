@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -102,6 +102,8 @@
 	</div>
 
 <script>
+// 初始localst
+// utils.setParam('ShoppingCart','');
 // ---------检测浏览器宽高------
 	var H = document.documentElement.clientHeight;
 	var W = document.documentElement.clientWidth;
@@ -171,7 +173,7 @@
 												_this.parents('.main-copy-container').remove();
 												var ShoppingCart = utils.getParam("ShoppingCart");
 												var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
-												alert(jsonstr.productlist[0].name);
+								
 												for(var i in jsonstr.productlist){
 													if(_this.parents('.main-copy-container').find('.main-copy-container-name').html() == jsonstr.productlist[i].name){
 														jsonstr.productlist.splice(i,1);
@@ -286,7 +288,6 @@
 
 
 								// 提取localstorage数据，动态显示inputval
-								utils.setParam('shoppingcart','');
                                var ShoppingCart = utils.getParam("ShoppingCart");
 								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
 								var productlist = jsonstr.productlist;
@@ -336,16 +337,16 @@
 // 第一加载商品时候绑定后台数据
     for(i=0;i<=7;i++){
     	$('#' + i).each(function() {
-    		$(this).click(function() {
+    		$(this).click(function(event) {
     			/* Act on the event */
     			var request = new XMLHttpRequest();
-				request.open("GET", "service.php?number=" + $(this).attr('id'));
 				request.send();
 				request.onreadystatechange = function() {
 					if (request.readyState===4) {
 						if (request.status===200) { 
 							var data = JSON.parse(request.responseText);
 							if (data.success) { 
+								// 动态生成元素
 								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
 								$('.name').html(data.name);
 								$('.main .detail').addClass(data.id);
@@ -355,15 +356,6 @@
 								$('.detail-pic').css('backgroundImage',data.img);
 								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 
-
-                               // 提取localstorage数据，动态显示inputval
-                                var ShoppingCart = utils.getParam("ShoppingCart");
-								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
-								var productlist = jsonstr.productlist;
-								for(var i in productlist){
-						            $('.main-copy-container').remove();
-						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
-						        }
 								// 购物车增加
 								$(".add").click(function(){ 
 									var t=$(this).parent().find('input[class*=text_box]'); 
@@ -397,7 +389,19 @@
 									cart.addproduct(product);
 								})
 
-								//详情页展示
+
+								// 提取localstorage数据，动态显示inputval
+                               var ShoppingCart = utils.getParam("ShoppingCart");
+								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+								var productlist = jsonstr.productlist;
+								for(var i in productlist){
+						            $('.main-copy-container').remove();
+						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+						            return false
+						        }
+
+								
+// 详情图片
 								$('#detail-pic').bind('click', function(event) {
 									/* Act on the event */
     								$('.showPic').css({
@@ -429,7 +433,7 @@
 						}
 					} 
 				}
-    			
+    		
     		});
     	});
     }
