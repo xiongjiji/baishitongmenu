@@ -123,7 +123,7 @@
 	content: '元'
 }
 
-.main-copy{width: 90%;position: absolute;left:5%;top:10%;background: white}
+.main-copy{width: 90%;position: absolute;left:5%;top:20%;background: white}
 
 .main-copy-container{
 	width: 90%;height:60px;margin:0 auto;border-bottom: 1px solid #eae9ee;position: relative;
@@ -132,3 +132,18 @@
 .main-copy-container-name{font-size: 18px;font-weight: bold;position: absolute;top:5%;left: 5%}
 
 .main-copy-container-price{font-size: 16px;position: absolute;bottom:5%;left: 5%;color:red;}
+
+
+
+
+.menu-title{width: 90%;height:35px;position: absolute;left:5%;top:13%;border-bottom:2px solid black;}
+
+.menu-title span{color: black;line-height: 30px;font-weight: bolder;}
+
+.add-empty{width: 50%;height: 30px;position: absolute;right:0;top:0;}
+
+.btn{width: 70px;height: 30px;border: none;border-radius: 3px;color: white;}
+
+#btn-add{background: pink;}
+
+#btn-empty{background: #BCBDC0;margin-left:5px;}
