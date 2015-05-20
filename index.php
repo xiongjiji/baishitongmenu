@@ -95,13 +95,6 @@
 					<button class="btn" id="btn-empty">清空</button>
 				</div>
 			</div>
-			<div class="menu-title">
-				<span>我的菜单</span>
-				<div class="add-empty">
-					<button class="btn" id="btn-add">加菜</button>
-					<button class="btn" id="btn-empty">清空</button>
-				</div>
-			</div>
 			<div class="main-copy">
 				<div class="main-copy-control"></div>
 			</div>
@@ -199,7 +192,9 @@
 		var productlist = jsonstr.productlist;
 		for(var i in productlist){
             $('.main-copy-container').remove();
+
 		}
+		utils.setParam("ShoppingCart","")
 	});
 
 	$('#btn-add').click(function(event) {

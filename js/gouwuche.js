@@ -54,7 +54,7 @@ cart = {
         }
     },
     // 计算总价
-    totalNumber:function(){
+     totalNumber:function(){
         var ShoppingCart = utils.getParam("ShoppingCart");
         var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
         var productlist = jsonstr.productlist;
