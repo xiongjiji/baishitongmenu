@@ -88,6 +88,20 @@
 		<h3>请叫服务员下单</h3>
 		<div class="total">
 			<span class="gongji">共计</span><span id="result"></div>
+			<div class="menu-title">
+				<span>我的菜单</span>
+				<div class="add-empty">
+					<button class="btn" id="btn-add">加菜</button>
+					<button class="btn" id="btn-empty">清空</button>
+				</div>
+			</div>
+			<div class="menu-title">
+				<span>我的菜单</span>
+				<div class="add-empty">
+					<button class="btn" id="btn-add">加菜</button>
+					<button class="btn" id="btn-empty">清空</button>
+				</div>
+			</div>
 			<div class="main-copy">
 				<div class="main-copy-control"></div>
 			</div>
@@ -174,6 +188,32 @@
 
 
     });
+
+    $('#btn-add').click(function(event) {
+		$('.bill').css('display','none');
+	});
+
+	$('#btn-empty').click(function(product){
+		var ShoppingCart = utils.getParam("ShoppingCart");
+		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+		var productlist = jsonstr.productlist;
+		for(var i in productlist){
+            $('.main-copy-container').remove();
+		}
+	});
+
+	$('#btn-add').click(function(event) {
+		$('.bill').css('display','none');
+	});
+
+	$('#btn-empty').click(function(product){
+		var ShoppingCart = utils.getParam("ShoppingCart");
+		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+		var productlist = jsonstr.productlist;
+		for(var i in productlist){
+            $('.main-copy-container').remove();
+		}
+	});
 
 	// function showPic(){
 	// 	$('.detail-pic').click(function(event) {

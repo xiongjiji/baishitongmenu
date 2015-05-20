@@ -133,10 +133,26 @@
 
 .main-copy-container-price{font-size: 16px;position: absolute;bottom:5%;left: 5%;color:red;}
 
+
 .comfirmdelete{position: absolute;width: 70%;top:150px;height:150px;left:15%;background: black;opacity:0.7;display: none}
 
 .comfirmdelete-name{color:white;font-size: 15px;margin-top:30px;text-align: center}
 
 .comfirm-container{position: absolute;background: green;color:white;text-align: center;height: 50px;line-height: 50px;font-size: 15px;left: 10%;bottom: 20px;width: 30%}
 
-.delete-container{position: absolute;background: green;color:white;text-align: center;height: 50px;line-height: 50px;font-size: 15px;right: 10%;bottom: 20px;width: 30%;}
+
+
+
+.menu-title{width: 90%;height:35px;position: absolute;left:5%;top:13%;border-bottom:2px solid black;}
+
+.menu-title span{color: black;line-height: 30px;font-weight: bolder;}
+
+.add-empty{width: 50%;height: 30px;position: absolute;right:0;top:0;}
+
+.btn{width: 70px;height: 30px;border: none;border-radius: 3px;color: white;}
+
+#btn-add{background: pink;}
+
+#btn-empty{background: #BCBDC0;margin-left:5px;}
+
+
