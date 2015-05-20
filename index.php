@@ -16,10 +16,9 @@
 <body>
 
 	<div class="wrapper">
+		<!-- <div class="logo" style = "background:url('./image/logo.png') top left no-repeat;background-size:cover"></div> -->
 		<div class="nav">
-			<div class="logo" style = "background:url('./image/logo.png') top left no-repeat;background-size:cover">
-				
-			</div>
+			
 			<div id="1" class="active">
 				<p>推荐菜</p>
 			</div>
@@ -133,9 +132,10 @@
         var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
         var productlist = jsonstr.productlist;
         for(var i in productlist){
-            	$('.main-copy').append('<div class="main-copy-container"><div class="main-copy-container-name">'+productlist[i].name+'</div><div class="main-copy-container-price"><span id="comfirm-price">'+productlist[i].price+'</span>元/<span id="comfirm-amountname">'+productlist[i].amountName+'<span></div><table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="'+productlist[i].amount+'" /><input class="add" name="" type="button" value="+" /></td></tr></div></div>');
+        	$('.main-copy').append('<div class="main-copy-container"><div class="main-copy-container-name">'+productlist[i].name+'</div><div class="main-copy-container-price"><span id="comfirm-price">'+productlist[i].price+'</span>元/<span id="comfirm-amountname">'+productlist[i].amountName+'<span></div><table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="'+productlist[i].amount+'" /><input class="add" name="" type="button" value="+" /></td></tr></div></div>');
+    
+        	}
 
-            }
         $('.main-copy .add').click(function(event) {
             		/* Act on the event */
             		var t=$(this).parent().find('input[class*=text_box]'); 
@@ -190,17 +190,8 @@
 // 账单头绑定事件
     $('#btn-add').click(function(event) {
 		$('.bill').css('display','none');
-		var ShoppingCart = utils.getParam("ShoppingCart");
-		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
-		var productlist = jsonstr.productlist;
-		$('#1,#2,#3,#4,#5,#6,#7').click(function(event) {
-			/* Act on the event */
-				for(var i in productlist){
-				$('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
-				alert($('.'+productlist[i].id).find("input[class*=text_box]").val());
-				return false
-				}
-			})
+		
+		init();//调用预定义init（）
 		});
 		
 
@@ -227,6 +218,10 @@
 						if (request.status===200) { 
 							var data = JSON.parse(request.responseText);
 							if (data.success) { 
+								// 重新nav第一个元素加上active类
+								$('.active').removeClass('active');
+								$('.nav div:nth-child(1)').addClass('active');
+								// 动态生成元素
 								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
 								$('.name').html(data.name);
 								$('.main .detail').addClass(data.id);
@@ -251,7 +246,15 @@
 									cart.addproduct(product);
 									
 								})
-							
+								// 提取localstorage数据，动态显示inputval
+                               var ShoppingCart = utils.getParam("ShoppingCart");
+								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+								var productlist = jsonstr.productlist;
+								for(var i in productlist){
+						            $('.main-copy-container').remove();
+						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+						            return false
+						        }
 								// 购物车减少数量
 								$(".min").click(function(event) {
 									var t=$(this).parent().find('input[class*=text_box]');
@@ -367,6 +370,15 @@
 								$('.detail-pic').css('backgroundImage',data.img);
 								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 
+
+                               // 提取localstorage数据，动态显示inputval
+                                var ShoppingCart = utils.getParam("ShoppingCart");
+								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+								var productlist = jsonstr.productlist;
+								for(var i in productlist){
+						            $('.main-copy-container').remove();
+						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+						        }
 								// 购物车增加
 								$(".add").click(function(){ 
 									var t=$(this).parent().find('input[class*=text_box]'); 
