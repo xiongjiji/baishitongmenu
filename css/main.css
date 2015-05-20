@@ -104,9 +104,9 @@
 }
 
 /*-----------购物车-------------*/
-#tap{position: absolute;right: 0;bottom:10px ;}
+#tap{position: absolute;right: 0;bottom:10px;}
 
-.text_box{width: 10px;text-align: center}
+.text_box{width: 30px;text-align: center;}
 
 /*...........bill...........*/
 .bill {position: absolute;top: 0;left: 0;background: #eae9ee;}
@@ -155,8 +155,8 @@
 
 .comfirmdelete-name{color:white;font-size: 15px;margin-top:30px;text-align: center}
 
-.comfirm-container{position: absolute;background: green;color:white;text-align: center;height: 50px;line-height: 50px;font-size: 15px;left: 10%;bottom: 20px;width: 30%}
+.comfirm-container{opacity:1;position: absolute;background: green;color:white;text-align: center;height: 50px;line-height: 50px;font-size: 15px;left: 10%;bottom: 20px;width: 30%}
 
-.delete-container{position: absolute;background: green;color:white;text-align: center;height: 50px;line-height: 50px;font-size: 15px;right: 10%;bottom: 20px;width: 30%;}
+.delete-container{opacity:1;position: absolute;background: green;color:white;text-align: center;height: 50px;line-height: 50px;font-size: 15px;right: 10%;bottom: 20px;width: 30%;}
 
 
