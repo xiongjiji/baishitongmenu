@@ -80,6 +80,11 @@
 
 	<!-- 我的菜单 -->
 	<div class="bill" style = "display:none">
+		<div class="comfirmdelete">
+			<div class="comfirmdelete-name">是否删除<span id="comfirmdelete-name"></span></div>
+			<div class="comfirm-container">确定</div>
+			<div class="delete-container">取消</div>
+		</div>
 		<h3>请叫服务员下单</h3>
 		<div class="total">
 			<span class="gongji">共计</span><span id="result"></div>
@@ -87,6 +92,7 @@
 				<div class="main-copy-control"></div>
 			</div>
 		</div>
+		
 	</div>
 
 <script>
@@ -144,6 +150,12 @@
 									t.val(parseInt(t.val())-1);
 									if(parseInt(t.val())< 0){
 										t.val(0);
+										if(t.val() == 0){
+											$(".comfirmdelete").css('display','block');
+											$('.comfirm-container').click(function(event) {
+												/* Act on the event */
+											});
+										}
 									};
 
 					var aftername = $(this).parents('.main-copy-container').find('.main-copy-container-name').html();
