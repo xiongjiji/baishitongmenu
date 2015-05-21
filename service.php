@@ -6,10 +6,12 @@ header("Content-Type: text/plain;charset=utf-8");
 //header("Content-Type: text/html;charset=utf-8"); 
 //header("Content-Type: application/javascript;charset=utf-8"); 
 
-//定义一个多维数组，包含员工的信息，每条员工信息为一个数组
+//定义一个多维数组，包含产品的信息，每条信息为一个数组
 $staff = array
 	(
 		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "1341515"),
+		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "1341515"),
+		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "1341516"),
 		array("name" => "炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/logo.png","id" => "1234"),
 		array("name" => "粥", "number" => "3", "price" => "5", "amount" => "碗","people" =>"34","img" =>"./image/logo.png","id" => "3414"),
 		array("name" => "肠粉", "number" => "4", "price" => "5", "amount" => "份","people" =>"35","img" =>"./image/logo.png","id" => "3422224"),
@@ -26,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST"){
 	create();
 }
-
+//$staff[0][number]
 //通过员工编号搜索员工
 function search(){
 	//检查是否有员工编号的参数
@@ -41,18 +43,25 @@ function search(){
 	global $staff;
 	//获取number参数
 	$number = $_GET["number"];
-	$result = '{"success":false,"msg":"没有找到员工。"}';
+	$result = '{"success":false,"msg":"参数错误。"}';
+	$array_re=array();
 	
-	//遍历$staff多维数组，查找key值为number的员工是否存在，如果存在，则修改返回结果
+	//遍历$staff多维数组，查找key值为number的产品是否存在，如果存在，则修改返回结果
 	foreach ($staff as $value) {
-		if ($value["number"] == $number) {
+		
+		while($value["number"] == $number) {
+			
 			$result = '{"success":true,"number":"' . $value["number"] . '","price":"'.$value["price"].'","id":"'.$value["id"].'","amount":"'.$value["amount"].'","people":"'.$value["people"].
 			'","img":"'.$value["img"].'","name":"'.$value["name"].
 							 '"}';
+			array_push($array_re,$result);	
 			break;
+
 		}
+	
 	}
-    echo $result;
+	$js_arr = json_encode($array_re);
+    echo $js_arr;
 }
 
 //创建员工

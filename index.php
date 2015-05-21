@@ -128,6 +128,7 @@
 // 动态生成账单总金额
     $('.mymenu').click(function(product) {
     	/* Act on the event */
+    	$('.main').empty;
     	$('.bill').css('display','block');
     	$('#result').html(cart.totalNumber);
     	var ShoppingCart = utils.getParam("ShoppingCart");
@@ -237,6 +238,7 @@
 
 // 第一次加载商品 发出ajax请求
 	   function init(){
+	   		$('.main').empty();
 	   		var request = new XMLHttpRequest();
 				request.open("GET", "service.php?number=1");
 				request.send();
@@ -244,18 +246,22 @@
 					if (request.readyState===4) {
 						if (request.status===200) { 
 							var data = JSON.parse(request.responseText);
-							if (data.success) { 
+							var data = '[' + data + ']';
+							var obj1 = eval("("+data+")")
+							for(var i in obj1){
+								if (obj1[i].success) { 
+									alert(obj1[2].success);
 								// 重新nav第一个元素加上active类
 								$('.active').removeClass('active');
 								$('.nav div:nth-child(1)').addClass('active');
 								// 动态生成元素
-								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
-								$('.name').html(data.name);
-								$('.main .detail').addClass(data.id);
-								$('#price-number').html(data.price);
-								$('#price-amount').html(data.amount);
-								$('#price-people').html(data.people);
-								$('.detail-pic').css('backgroundImage',data.img);
+								$('.main').append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
+								$('.name').html(obj1[i].name);
+								$('.main .detail').addClass(obj1[i].id);
+								$('#price-number').html(obj1[i].price);
+								$('#price-amount').html(obj1[i].amount);
+								$('#price-people').html(obj1[i].people);
+								$('.detail-pic').css('backgroundImage',obj1[i].img);
 								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 
 								// 购物车增加
@@ -264,11 +270,11 @@
 									t.val(parseInt(t.val())+1);
 									// 向购物车加入商品
 									product = {
-                                           "name":data.name,
-                                           "price":data.price,
+                                           "name":obj1[i].name,
+                                           "price":obj1[i].price,
                                            "amount":t.val(),
-                                           "amountName":data.amount,
-                                           "id":data.id
+                                           "amountName":obj1[i].amount,
+                                           "id":obj1[i].id
                                        }
 									cart.addproduct(product);
 									
@@ -283,10 +289,10 @@
 									};
 									//更改购物车数据
 									product = {
-                                           "name":data.name,
-                                           "price":data.price,
+                                           "name":obj1[i].name,
+                                           "price":obj1[i].price,
                                            "amount":t.val(),
-                                           "amountName":data.amount
+                                           "amountName":obj1[i].amount
                                        }
 									cart.addproduct(product);
 								})
@@ -330,6 +336,93 @@
 								});
 							} else {
 							}
+							}
+// 							if (data.success) { 
+// 								// 重新nav第一个元素加上active类
+// 								$('.active').removeClass('active');
+// 								$('.nav div:nth-child(1)').addClass('active');
+// 								// 动态生成元素
+// 								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
+// 								$('.name').html(data.name);
+// 								$('.main .detail').addClass(data.id);
+// 								$('#price-number').html(data.price);
+// 								$('#price-amount').html(data.amount);
+// 								$('#price-people').html(data.people);
+// 								$('.detail-pic').css('backgroundImage',data.img);
+// 								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
+
+// 								// 购物车增加
+// 								$(".add").click(function(){ 
+// 									var t=$(this).parent().find('input[class*=text_box]'); 
+// 									t.val(parseInt(t.val())+1);
+// 									// 向购物车加入商品
+// 									product = {
+//                                            "name":data.name,
+//                                            "price":data.price,
+//                                            "amount":t.val(),
+//                                            "amountName":data.amount,
+//                                            "id":data.id
+//                                        }
+// 									cart.addproduct(product);
+									
+// 								})
+
+// 								// 购物车减少数量
+// 								$(".min").click(function(event) {
+// 									var t=$(this).parent().find('input[class*=text_box]');
+// 									t.val(parseInt(t.val())-1);
+// 									if(parseInt(t.val())< 0){
+// 										t.val(0);
+// 									};
+// 									//更改购物车数据
+// 									product = {
+//                                            "name":data.name,
+//                                            "price":data.price,
+//                                            "amount":t.val(),
+//                                            "amountName":data.amount
+//                                        }
+// 									cart.addproduct(product);
+// 								})
+
+
+// 								// 提取localstorage数据，动态显示inputval
+//                                var ShoppingCart = utils.getParam("ShoppingCart");
+// 								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+// 								var productlist = jsonstr.productlist;
+// 								for(var i in productlist){
+// 						            $('.main-copy-container').remove();
+// 						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+		
+// 						        }
+
+								
+// // 详情图片
+// 								$('#detail-pic').bind('click', function(event) {
+// 									/* Act on the event */
+//     								$('.showPic').css({
+// 									 display: 'block',
+// 									 property2: 'value2'
+// 									     	});
+//     								 var imgDetail = $(this).css('background-image');
+// 							    	// 动态获取背景图片
+// 							    	$('#Pic-detail').css('backgroundImage',imgDetail);
+// 							    	//动态获取说明文字
+// 							    	var name = $(this).next().html();
+// 							    	var price = $(this).next().next().html();
+// 							    	var people = $(this).next().next().html();
+// 							    	$('#detail-name').html(name);
+// 							    	$('#detail-price').html(price);
+// 							    	$('#detail-people').html(people);
+// 							    	$('.close').click(function(event) {
+// 							    		$('.showPic').css({
+// 							    			display: 'none',
+// 							    			property2: 'value2'
+// 							    		});
+// 							    	});
+// 									// event.stopPropagation(); 
+// 								});
+// 							} else {
+// 							}
 						} else {
 							alert("发生错误：" + request.status);
 						}
@@ -345,6 +438,7 @@
     	$('#' + i).each(function() {
     		$(this).click(function(event) {
     			/* Act on the event */
+    			$('.main').empty();
     			var request = new XMLHttpRequest();
 				request.open("GET", "service.php?number="+ $(this).attr('id'));
 				request.send();
@@ -352,31 +446,39 @@
 					if (request.readyState===4) {
 						if (request.status===200) { 
 							var data = JSON.parse(request.responseText);
-							if (data.success) { 
+							var data = '[' + data + ']';
+							var obj1 = eval("("+data+")")
+							for(var i in obj1){
+								if (obj1[i].success) {
 								// 动态生成元素
 								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
-								$('.name').html(data.name);
-								$('.main .detail').addClass(data.id);
-								$('#price-number').html(data.price);
-								$('#price-amount').html(data.amount);
-								$('#price-people').html(data.people);
-								$('.detail-pic').css('backgroundImage',data.img);
+								$('.name').html(obj1[i].name);
+								$('.main .detail').attr({
+									id: obj1[i].id
+								});
+								$('#price-number').html(obj1[i].price);
+								$('#price-amount').html(obj1[i].amount);
+								$('#price-people').html(obj1[i].people);
+								$('.detail-pic').css('backgroundImage',obj1[i].img);
 								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 
-								// 购物车增加
+								
+							} else {
+							}
+
+							// 购物车增加
 								$(".add").click(function(){ 
 									var t=$(this).parent().find('input[class*=text_box]'); 
 									t.val(parseInt(t.val())+1);
 									// 向购物车加入商品
 									product = {
-                                           "name":data.name,
-                                           "price":data.price,
-                                           "amount":t.val(),
-                                           "amountName":data.amount,
-                                           "id":data.id
+                                           "name":$(this).parents('.detail').find('.name').html(),
+                                           "price":$(this).parents('.detail').find('#price-number').html(),
+                                           "amount":$(this).parent().find('input[class*=text_box]').val(),
+                                           "amountName":$(this).parents('.detail').find('#price-amount').html(),
+                                           "id":$(this).parents('.detail').attr('id'),
                                        }
 									cart.addproduct(product);
-									
 								})
 
 								// 购物车减少数量
@@ -388,10 +490,11 @@
 									};
 									//更改购物车数据
 									product = {
-                                           "name":data.name,
-                                           "price":data.price,
-                                           "amount":t.val(),
-                                           "amountName":data.amount
+                                           "name":$(this).parents('.detail').find('.name').html(),
+                                           "price":$(this).parents('.detail').find('#price-number').html(),
+                                           "amount":$(this).parent().find('input[class*=text_box]').val(),
+                                           "amountName":$(this).parents('.detail').find('#price-amount').html(),
+                                           "id":$(this).parents('.detail').attr('id'),
                                        }
 									cart.addproduct(product);
 								})
@@ -403,7 +506,7 @@
 								var productlist = jsonstr.productlist;
 								for(var i in productlist){
 										$('.main-copy-container').remove();
-						                $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+						                $('#'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
 						         
 						        }
 
@@ -433,8 +536,8 @@
 							    	});
 									// event.stopPropagation(); 
 								});
-							} else {
 							}
+							
 						} else {
 							alert("发生错误：" + request.status);
 						}
