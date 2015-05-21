@@ -20,13 +20,12 @@
 	position: relative;
 }
 
-#detail-pic{
+.detail-pic{
 	position: absolute;
 	height:60px;width:40%;
 	left:0;top:10px;
 	background:center center no-repeat;
 	background-size:cover; 
-	background-image:url('../image/close.png');
 }
 
 .detail .name{
