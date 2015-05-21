@@ -270,6 +270,7 @@
 							} else {
 							}
 							}
+
 							// 购物车增加
 								$(".add").click(function(){ 
 									var t=$(this).parent().find('input[class*=text_box]'); 

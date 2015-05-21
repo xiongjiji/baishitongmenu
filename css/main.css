@@ -141,9 +141,9 @@
 
 .menu-title span{color: black;line-height: 30px;font-weight: bolder;}
 
-.add-empty{width: 50%;height: 30px;position: absolute;right:0;top:0;}
+.add-empty{width: 150px;height: 30px;position: absolute;right:0;top:0;}
 
-.btn{width: 70px;height: 30px;border: none;border-radius: 3px;color: white;}
+.btn{width: 60px;height: 30px;border: none;border-radius: 3px;color: white;}
 
 #btn-add{background: pink;}
 
