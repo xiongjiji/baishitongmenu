@@ -9,16 +9,16 @@ header("Content-Type: text/plain;charset=utf-8");
 //定义一个多维数组，包含产品的信息，每条信息为一个数组
 $staff = array
 	(
-		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "111114"),
-		array("name" => "广州炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "111112"),
-		array("name" => "印度炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/logo.png","id" => "111113"),
-		array("name" => "炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/logo.png","id" => "211111"),
-		array("name" => "广州炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/logo.png","id" => "211112"),
-		array("name" => "粥", "number" => "3", "price" => "5", "amount" => "碗","people" =>"34","img" =>"./image/logo.png","id" => "3414"),
-		array("name" => "肠粉", "number" => "4", "price" => "5", "amount" => "份","people" =>"35","img" =>"./image/logo.png","id" => "3422224"),
-		array("name" => "面包", "number" => "5", "price" => "6", "amount" => "个","people" =>"31","img" =>"./image/logo.png","id" => "342344414"),
-		array("name" => "蛋糕", "number" => "6", "price" => "7", "amount" => "个","people" =>"32","img" =>"./image/logo.png","id" => "345354"),
-		array("name" => "酱油", "number" => "7", "price" => "8", "amount" => "份","people" =>"33","img" =>"./image/logo.png","id" => "3414141"),
+		array("name" => "炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/1.jpg","id" => "111114"),
+		array("name" => "广州炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/2.jpg","id" => "111112"),
+		array("name" => "印度炒饭", "number" => "1", "price" => "2", "amount" => "份","people" =>"3","img" =>"./image/3.jpg","id" => "111113"),
+		array("name" => "炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/5.jpg","id" => "211111"),
+		array("name" => "广州炒菜", "number" => "2", "price" => "4", "amount" => "份","people" =>"33","img" =>"./image/6.jpg","id" => "211112"),
+		array("name" => "粥", "number" => "3", "price" => "5", "amount" => "碗","people" =>"34","img" =>"./image/7.jpg","id" => "3414"),
+		array("name" => "肠粉", "number" => "4", "price" => "5", "amount" => "份","people" =>"35","img" =>"./image/8.jpg","id" => "3422224"),
+		array("name" => "面包", "number" => "5", "price" => "6", "amount" => "个","people" =>"31","img" =>"./image/9.jpg","id" => "342344414"),
+		array("name" => "蛋糕", "number" => "6", "price" => "7", "amount" => "个","people" =>"32","img" =>"./image/10.jpg","id" => "345354"),
+		array("name" => "酱油", "number" => "7", "price" => "8", "amount" => "份","people" =>"33","img" =>"./image/11.jpg","id" => "3414141"),
 	);
 
 //判断如果是get请求，则进行搜索；如果是POST请求，则进行新建
