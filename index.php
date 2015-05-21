@@ -163,9 +163,9 @@
             		var _this = $(this);
             		var t=$(this).parent().find('input[class*=text_box]');
 									t.val(parseInt(t.val())-1);
-									if(parseInt(t.val())< 0){
-										t.val(0);
-										if(t.val() == 0){
+									if(parseInt(t.val()) < 1){
+										t.val(1);
+										if(t.val() == 1){
 											$(".comfirmdelete").css('display','block');
 											$('#comfirmdelete-name').html($(this).parents('.main-copy-container').find('.main-copy-container-name').html());
 											$('.comfirm-container').click(function(event) {
