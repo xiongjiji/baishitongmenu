@@ -176,9 +176,12 @@
 								
 												for(var i in jsonstr.productlist){
 													if(_this.parents('.main-copy-container').find('.main-copy-container-name').html() == jsonstr.productlist[i].name){
-														jsonstr.productlist.splice(i,1);
 
-														utils.setParam("ShoppingCart","'"+JSON.stringify(jsonstr));
+														jsonstr.productlist.splice(i,1);
+														if(jsonstr.productlist.length == 0){
+															utils.setParam("ShoppingCart","");
+														}else(utils.setParam("ShoppingCart","'"+JSON.stringify(jsonstr)))
+														
 													}
 												}
 
@@ -210,6 +213,8 @@
 		$('.bill').css('display','none');
 		
 		init();//调用预定义init（）
+
+		init2();
 		});
 		
 
@@ -294,7 +299,7 @@
 								for(var i in productlist){
 						            $('.main-copy-container').remove();
 						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
-						            return false
+		
 						        }
 
 								
@@ -335,11 +340,13 @@
 	   init();
 
 // 第一加载商品时候绑定后台数据
-    for(i=0;i<=7;i++){
+   function init2(){
+   		for(i=0;i<=7;i++){
     	$('#' + i).each(function() {
     		$(this).click(function(event) {
     			/* Act on the event */
     			var request = new XMLHttpRequest();
+				request.open("GET", "service.php?number="+ $(this).attr('id'));
 				request.send();
 				request.onreadystatechange = function() {
 					if (request.readyState===4) {
@@ -395,9 +402,9 @@
 								var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
 								var productlist = jsonstr.productlist;
 								for(var i in productlist){
-						            $('.main-copy-container').remove();
-						            $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
-						            return false
+										$('.main-copy-container').remove();
+						                $('.'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+						         
 						        }
 
 								
@@ -433,10 +440,13 @@
 						}
 					} 
 				}
-    		
     		});
     	});
+    		
     }
+   };
+    
+    init2();
 
  
 </script>
