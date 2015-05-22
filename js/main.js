@@ -285,8 +285,8 @@ function mymenuMin(){
             var t=$(this).parent().find('input[class*=text_box]');
 			t.val(parseInt(t.val())-1);
 			if(parseInt(t.val()) < 1){
-					t.val(1);
-					if(t.val() == 1){
+					t.val(0);
+					if(t.val() == 0){
 						$(".comfirmdelete").css('display','block');
 						//quit
 						$('.delete-container').click(function(event) {
