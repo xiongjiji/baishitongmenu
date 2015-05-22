@@ -100,12 +100,17 @@
 	position: absolute;
 	width: 10%;height: 10%;
 	top: -5%;right: -5%;
+	z-index: 100
 }
 
 /*-----------购物车-------------*/
 #tap{position: absolute;right: 0;bottom:10px;}
 
 .text_box{width: 30px;text-align: center;}
+
+.add,.min{width: 15px}
+
+
 
 /*...........bill...........*/
 .bill {position: absolute;top: 0;left: 0;background: #eae9ee;}

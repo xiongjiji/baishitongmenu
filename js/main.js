@@ -1,3 +1,7 @@
+//c全局变量
+
+
+
 $(document).ready(function($) {
 	init();//调用init函数
 
@@ -47,12 +51,17 @@ function firstNav(){
 								$('.price-number').eq(i).html(obj1[i].price);
 								$('.price-amount').eq(i).html(obj1[i].amount);
 								$('.price-people').eq(i).html(obj1[i].people);
-								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")");//css 要传入一个字符串
+								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")").bind('tap',imgDetail);//css 要传入一个字符,链式调用imgdetail事件
 								$('.detail').eq(i).append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
+
+								
 			
 							} else {
 							}//结束动态生成
 						}//end the for loop
+
+						add();//add event
+						min();
 					}//end thd request.status
 				}//end the request.readyState
 			}//end the onreadystatechange
@@ -86,16 +95,88 @@ function navTap(){
 								$('.price-number').eq(i).html(obj1[i].price);
 								$('.price-amount').eq(i).html(obj1[i].amount);
 								$('.price-people').eq(i).html(obj1[i].people);
-								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")");//css 要传入一个字符串
+								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")").bind('tap',imgDetail);//css 要传入一个字符串
 								$('.detail').eq(i).append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
-			
+								
 								} else {
 								}//结束动态生成
 							}//end the for loop
+
+							add();//add event
+							min();
 						}//end status
 					}//end readyState
 				}//end onready....
 			})//end tap
 		});//end each
 	}//end for loop
+}
+
+//详情页function
+function imgDetail(){
+	$('.showPic').css("display","block");
+
+	 var imgDetail = $(this).css('background-image');
+						// 动态获取背景图片
+	$('#Pic-detail').css('backgroundImage',imgDetail);
+							    	//动态获取说明文字
+	var name = $(this).next().html();
+	var price = $(this).next().next().html();
+	var people = $(this).next().next().html();
+	$('#detail-name').html(name);
+	$('#detail-price').html(price);
+	$('#detail-people').html(people);
+	$('.close').tap(function(){
+		$('.showPic').css('display','none')
+	})
+}
+
+//input add
+function add(){
+	$('.add').tap(function(){
+		//get the value of the text_box
+		var t=$(this).parent().find('input[class*=text_box]'); 
+	    t.val(parseInt(t.val())+1);
+	    // 向购物车加入商品
+		product = {
+            "name":$(this).parents('.detail').find('.name').html(),
+            "price":$(this).parents('.detail').find('.price-number').html(),
+            "amount":$(this).parent().find('input[class*=text_box]').val(),
+            "amountName":$(this).parents('.detail').find('.price-amount').html(),
+            "id":$(this).parents('.detail').attr('id'),
+            }
+        cart.addproduct(product);
+	})//end the tap function
+}
+
+//input min
+function min(){
+	$('.min').tap(function(){
+		var ShoppingCart = utils.getParam("ShoppingCart");
+		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+		var productlist = jsonstr.productlist;
+		//get the value of the text_box
+		var t=$(this).parent().find('input[class*=text_box]'); 
+	    t.val(parseInt(t.val())-1);
+	    // 向购物车加入商品
+	    if(parseInt(t.val())<1){
+	    	t.val(0);
+	    	if(t.val() == 0){
+	    		for(var i in productlist){
+	    			if(product.name = productlist[i].name){
+	    				console.log(productlist[i].name);
+	    				delete productlist[i];
+	    			}
+	    		}
+	    	}
+	    }//end if
+		product = {
+            "name":$(this).parents('.detail').find('.name').html(),
+            "price":$(this).parents('.detail').find('.price-number').html(),
+            "amount":$(this).parent().find('input[class*=text_box]').val(),
+            "amountName":$(this).parents('.detail').find('.price-amount').html(),
+            "id":$(this).parents('.detail').attr('id'),
+            }
+        cart.addproduct(product);
+	})//end the tap function
 }
