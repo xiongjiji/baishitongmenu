@@ -198,8 +198,14 @@ function inputval(){
 	var ShoppingCart = utils.getParam("ShoppingCart");
 		 var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
 		 var productlist = jsonstr.productlist;
+		 $('.main').find("input[class*=text_box]").val(0);//先清零
 		 for(var i in productlist){
-		 	$('.main').find('#'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+		 	if($('.main').find('#'+productlist[i].id).find("input[class*=text_box]")){
+		 		$('.main').find('#'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+		 	}else{
+		 		$('.main').find("input[class*=text_box]").val(0);
+		 	}
+		 	
 		 }
 }
 
@@ -242,6 +248,8 @@ function mymenu(){
         mymenuMin();
         //清空
         btnEmpty();
+        //重新inputval
+        btnAdd();
 	});
 }
 
@@ -297,6 +305,7 @@ function mymenuMin(){
 													if(_this.parents('.main-copy-container').find('.main-copy-container-name').html() == jsonstr.productlist[i].name){
 
 														jsonstr.productlist.splice(i,1);
+														$('#result').html(cart.totalNumber);
 														if(jsonstr.productlist.length == 0){
 															utils.setParam("ShoppingCart","");
 															$('#result').html(0);
@@ -341,4 +350,12 @@ function btnEmpty(){
 		$('#result').html(0);
 	});
 
+}
+
+function btnAdd(){
+	$('#btn-add').click(function(event) {
+		$('.bill').css('display','none');
+		
+		inputval();
+		});
 }
