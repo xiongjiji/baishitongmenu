@@ -6,11 +6,15 @@ $(document).ready(function($) {
 	init();//调用init函数
 
 	navTap();
+
+	active();
 });
 
 function init(){
 	wh();
+	
 	firstNav();
+	
 }
 
 //定义页面宽高
@@ -51,7 +55,7 @@ function firstNav(){
 								$('.price-number').eq(i).html(obj1[i].price);
 								$('.price-amount').eq(i).html(obj1[i].amount);
 								$('.price-people').eq(i).html(obj1[i].people);
-								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")").bind('tap',imgDetail);//css 要传入一个字符,链式调用imgdetail事件
+								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")").bind('click',imgDetail);//css 要传入一个字符,链式调用imgdetail事件
 								$('.detail').eq(i).append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 
 								
@@ -60,6 +64,11 @@ function firstNav(){
 							}//结束动态生成
 						}//end the for loop
 
+						if(!utils.getParam("ShoppingCart")){
+							utils.setParam('ShoppingCart','')
+						}else{
+							inputval();
+						}//add inputval
 						add();//add event
 						min();
 					}//end thd request.status
@@ -72,7 +81,10 @@ function navTap(){
 	var navTap = $('.nav div');//get the nav object
 	for(i=0;i<=navTap.length;i++){
 		$('#'+i).each(function() {
-			$(this).tap(function(){
+			$(this).click(function(){
+				$('.active').removeClass('active');
+				$('this').addClass('active');
+
 				$('.main').empty();
 				var request = new XMLHttpRequest();
 				request.open('get',"service.php?number=" + $(this).attr('id'));
@@ -95,13 +107,18 @@ function navTap(){
 								$('.price-number').eq(i).html(obj1[i].price);
 								$('.price-amount').eq(i).html(obj1[i].amount);
 								$('.price-people').eq(i).html(obj1[i].people);
-								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")").bind('tap',imgDetail);//css 要传入一个字符串
+								$('.detail-pic').eq(i).css('backgroundImage', "url("+obj1[i].img+")").bind('click',imgDetail);//css 要传入一个字符串
 								$('.detail').eq(i).append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="0" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
 								
 								} else {
 								}//结束动态生成
 							}//end the for loop
 
+							if(!utils.getParam("ShoppingCart")){
+							utils.setParam('ShoppingCart','')
+							}else{
+							inputval();
+							}
 							add();//add event
 							min();
 						}//end status
@@ -126,14 +143,14 @@ function imgDetail(){
 	$('#detail-name').html(name);
 	$('#detail-price').html(price);
 	$('#detail-people').html(people);
-	$('.close').tap(function(){
+	$('.close').click(function(){
 		$('.showPic').css('display','none')
 	})
 }
 
 //input add
 function add(){
-	$('.add').tap(function(){
+	$('.add').click(function(){
 		//get the value of the text_box
 		var t=$(this).parent().find('input[class*=text_box]'); 
 	    t.val(parseInt(t.val())+1);
@@ -146,12 +163,12 @@ function add(){
             "id":$(this).parents('.detail').attr('id'),
             }
         cart.addproduct(product);
-	})//end the tap function
+	})//end the click function
 }
 
 //input min
 function min(){
-	$('.min').tap(function(){
+	$('.min').click(function(){
 		var ShoppingCart = utils.getParam("ShoppingCart");
 		var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
 		var productlist = jsonstr.productlist;
@@ -179,4 +196,27 @@ function min(){
             }
         cart.addproduct(product);
 	})//end the tap function
+}
+
+//页面显示以点数量
+function inputval(){
+	var ShoppingCart = utils.getParam("ShoppingCart");
+		 var jsonstr = JSON.parse(ShoppingCart.substr(1,ShoppingCart.length));
+		 var productlist = jsonstr.productlist;
+		 for(var i in productlist){
+		 	$('.main').find('#'+productlist[i].id).find("input[class*=text_box]").val(productlist[i].amount);
+		 }
+}
+
+//为每一个点击的菜单加丄active类
+function active(){
+	var navTap = $('.nav div');//get the nav object
+	for(i=0;i<=navTap.length;i++){
+		$('#'+i).each(function() {
+			$(this).click(function(){
+				$('.active').removeClass('active');
+				$(this).addClass('active');
+			});//end click
+		});//end each
+	}//end for
 }

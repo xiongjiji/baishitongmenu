@@ -10,8 +10,7 @@
 	<meta name="360-fullscreen" content="true">
 	<title>百事通点菜系统</title>
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
-	<script type="text/javascript" src='./js/zepto.min.js'></script>
-	<!--<script type="text/javascript" src='./js/jquery-1.9.1.min.js'></script>-->
+	<script type="text/javascript" src='./js/jquery-1.9.1.min.js'></script>
 	<script type="text/javascript" src='./js/gouwuche.js'></script>
 	<script type="text/javascript" src="./js/main.js"></script>
 </head>
