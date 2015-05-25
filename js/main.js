@@ -154,6 +154,7 @@ function imgDetail(){
 //input add
 function add(){
 	$('.add').click(function(){
+		$('.mymenu').css('display','block');
 		//get the value of the text_box
 		var t=$(this).parent().find('input[class*=text_box]'); 
 	    t.val(parseInt(t.val())+1);
@@ -345,7 +346,9 @@ function btnEmpty(){
             $('.main-copy-container').remove();
 
 		}
-		utils.setParam("ShoppingCart","")
+		utils.setParam("ShoppingCart","");
+
+		$('.main').find("input[class*=text_box]").val(0);//先清零
 
 		$('#result').html(0);
 	});
@@ -355,6 +358,8 @@ function btnEmpty(){
 function btnAdd(){
 	$('#btn-add').click(function(event) {
 		$('.bill').css('display','none');
+
+		$('.main').find("input[class*=text_box]").val(0);//先清零
 		
 		inputval();
 		});
