@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,14 +11,15 @@
 	<title>百事通点菜系统</title>
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 	<script type="text/javascript" src='./js/jquery-1.9.1.min.js'></script>
+	<script type="text/javascript" src='./js/gouwuche.js'></script>
+	<script type="text/javascript" src="./js/main.js"></script>
 </head>
 <body>
 
 	<div class="wrapper">
+		<!-- <div class="logo" style = "background:url('./image/logo.png') top left no-repeat;background-size:cover"></div> -->
 		<div class="nav">
-			<div class="logo" style = "background:url('./image/logo.png') top left no-repeat;background-size:cover">
-				
-			</div>
+			
 			<div id="1" class="active">
 				<p>推荐菜</p>
 			</div>
@@ -77,172 +78,32 @@
 		</div>
 	</div>
 
+	<!-- 我的菜单 -->
+	<div class="bill" style = "display:none">
+		<div class="comfirmdelete">
+			<div class="comfirmdelete-name">是否删除<span id="comfirmdelete-name"></span></div>
+			<div class="comfirm-container">确定</div>
+			<div class="delete-container">取消</div>
+		</div>
+		<h3>请叫服务员下单</h3>
+		<div class="total">
+			<span class="gongji">共计</span><span id="result"></div>
+			<div class="menu-title">
+				<span>我的菜单</span>
+				<div class="add-empty">
+					<button class="btn" id="btn-add">加菜</button>
+					<button class="btn" id="btn-empty">清空</button>
+				</div>
+			</div>
+			<div class="main-copy">
+				<div class="main-copy-control"></div>
+			</div>
+		</div>
+		
+	</div>
+
 <script>
-	var H = document.documentElement.clientHeight;
-	var W = document.documentElement.clientWidth;
-	$('.nav,.showPic').css({
-		height: H,
-		property2: 'value2'
-	});
 
-	$('.showPic').css({
-		width: W,
-		property2: 'value2'
-	});
-
-	$('#1,#2,#3,#4,#5,#6,#7').click(function() {
-		/* Act on the event */
-		$('.active').removeClass('active');
-		$(this).addClass('active');
-	});
-
-	// function showPic(){
-	// 	$('.detail-pic').click(function(event) {
- //    	/* Act on the event */
- //    	$('.showPic').css({
- //    		display: 'block',
- //    		property2: 'value2'
- //    	});
- //    	var imgDetail = $(this).css('background-image');
- //    	// 动态获取背景图片
- //    	$('#Pic-detail').css('backgroundImage',imgDetail);
- //    	//动态获取说明文字
- //    	var name = $(this).next().html();
- //    	var price = $(this).next().next().html();
- //    	var people = $(this).next().next().html();
- //    	$('#detail-name').html(name);
- //    	$('#detail-price').html(price);
- //    	$('#detail-people').html(people);
- //    	$('.close').click(function(event) {
- //    		$('.showPic').css({
- //    			display: 'none',
- //    			property2: 'value2'
- //    		});
- //    	});
- //    });
-	// 	return false;
-	// }
-	   function init(){
-	   		var request = new XMLHttpRequest();
-				request.open("GET", "service.php?number=1");
-				request.send();
-				request.onreadystatechange = function() {
-					if (request.readyState===4) {
-						if (request.status===200) { 
-							var data = JSON.parse(request.responseText);
-							if (data.success) { 
-								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
-								$('.name').html(data.name);
-								$('#price-number').html(data.price);
-								$('#price-amount').html(data.amount);
-								$('#price-people').html(data.people);
-								$('.detail-pic').css('backgroundImage',data.img);
-								$('.detail').append('<table id="tap"><tr><td><input class="min" name="" type="button" value="-" /><input class="text_box" name="" type="text" value="1" /><input class="add" name="" type="button" value="+" /></td></tr><div>');
-								// 购物车增加
-								$(".add").click(function(){ 
-									var t=$(this).parent().find('input[class*=text_box]'); 
-									t.val(parseInt(t.val())+1) 
-									setTotal(); 
-								})
-								// 购物车减少数量
-								$(".min").click(function(event) {
-									var t=$(this).parent().find('input[class*=text_box]');
-									t.val(parseInt(t.val())-1);
-									if(parseInt(t.val())< 0){
-										t.val(0);
-									};
-									setTotal();
-								});
-								$('#detail-pic').bind('click', function(event) {
-									/* Act on the event */
-    								$('.showPic').css({
-									 display: 'block',
-									 property2: 'value2'
-									     	});
-    								 var imgDetail = $(this).css('background-image');
-							    	// 动态获取背景图片
-							    	$('#Pic-detail').css('backgroundImage',imgDetail);
-							    	//动态获取说明文字
-							    	var name = $(this).next().html();
-							    	var price = $(this).next().next().html();
-							    	var people = $(this).next().next().html();
-							    	$('#detail-name').html(name);
-							    	$('#detail-price').html(price);
-							    	$('#detail-people').html(people);
-							    	$('.close').click(function(event) {
-							    		$('.showPic').css({
-							    			display: 'none',
-							    			property2: 'value2'
-							    		});
-							    	});
-									// event.stopPropagation(); 
-								});
-							} else {
-							}
-						} else {
-							alert("发生错误：" + request.status);
-						}
-					} 
-				}
-	   }
-
-	   init();
-
-    for(i=0;i<=7;i++){
-    	$('#' + i).each(function() {
-    		$(this).click(function() {
-    			/* Act on the event */
-    			var request = new XMLHttpRequest();
-				request.open("GET", "service.php?number=" + $(this).attr('id'));
-				request.send();
-				request.onreadystatechange = function() {
-					if (request.readyState===4) {
-						if (request.status===200) { 
-							var data = JSON.parse(request.responseText);
-							if (data.success) { 
-								$('.main').empty().append('<div class="detail"><div id="detail-pic"></div><p class="name"></p><p class="price"><span id="price-number"></span>元1<span id="price-amount"></span></p><p class="people"><span id="price-people"></span>人点过</p></div>');
-								$('.name').html(data.name);
-								$('#price-number').html(data.price);
-								$('#price-amount').html(data.amount);
-								$('#price-people').html(data.people);
-								$('.detail-pic').css('backgroundImage',data.img);
-								$('#detail-pic').bind('click', function(event) {
-									/* Act on the event */
-    								$('.showPic').css({
-									 display: 'block',
-									 property2: 'value2'
-									     	});
-    								 var imgDetail = $(this).css('background-image');
-							    	// 动态获取背景图片
-							    	$('#Pic-detail').css('backgroundImage',imgDetail);
-							    	//动态获取说明文字
-							    	var name = $(this).next().html();
-							    	var price = $(this).next().next().html();
-							    	var people = $(this).next().next().html();
-							    	$('#detail-name').html(name);
-							    	$('#detail-price').html(price);
-							    	$('#detail-people').html(people);
-							    	$('.close').click(function(event) {
-							    		$('.showPic').css({
-							    			display: 'none',
-							    			property2: 'value2'
-							    		});
-							    	});
-									// event.stopPropagation(); 
-								});
-							} else {
-							}
-						} else {
-							alert("发生错误：" + request.status);
-						}
-					} 
-				}
-    			
-    		});
-    	});
-    }
-
- 
 </script>
 </body>
 </html>
