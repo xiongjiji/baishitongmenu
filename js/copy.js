@@ -86,9 +86,9 @@
 
 												$('.comfirmdelete').css('display','none')
 
-											});
-										}
-									};
+											});//end for
+										}//end if
+									};//end if
 
 					var aftername = $(this).parents('.main-copy-container').find('.main-copy-container-name').html();
 					var afterPrice = $(this).parents('.main-copy-container').find('#comfirm-price').html();
